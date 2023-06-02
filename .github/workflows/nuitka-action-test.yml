@@ -2,7 +2,7 @@ name: Nuitka Action Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build-with-pip-cache:
