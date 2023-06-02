@@ -2,6 +2,8 @@ name: Nuitka Action Test
 
 on:
   push:
+    branches:
+      - stable
     tags:
       - "*"
 
