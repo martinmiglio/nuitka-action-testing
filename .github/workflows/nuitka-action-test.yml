@@ -5,34 +5,18 @@ on:
     branches: [ main ]
 
 jobs:
-  build-with-pip-cache:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Test Nuitka Build
-        uses: martinmiglio/Nuitka-Action@feature/dependency-caching
-        with:
-          nuitka-version: main
-          script-name: main.py
-          onefile: true
-          output-dir: dist
-          assume-yes-for-downloads: true
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: nuitka-build
-          path: dist
   build-with-nuitka-cache:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11]
     steps:
-      - uses: actions/checkout@v2
-      - name: Test Nuitka Build
+      - uses: actions/checkout
+      - uses: actions/setup-python
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Test Nuitka Build with Build Cache
         uses: martinmiglio/Nuitka-Action@feature/build-caching
         with:
           nuitka-version: main
@@ -41,7 +25,7 @@ jobs:
           output-dir: dist
           assume-yes-for-downloads: true
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact
         with:
           name: nuitka-build
           path: dist
