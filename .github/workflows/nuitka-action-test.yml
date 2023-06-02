@@ -25,6 +25,7 @@ jobs:
           onefile: true
           output-dir: dist
           assume-yes-for-downloads: true
+          mingw64: true # Only for Windows
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3
         with:
