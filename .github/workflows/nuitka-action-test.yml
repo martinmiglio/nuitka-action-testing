@@ -2,7 +2,8 @@ name: Nuitka Action Test
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - "*"
 
 jobs:
   build-with-nuitka-cache:
