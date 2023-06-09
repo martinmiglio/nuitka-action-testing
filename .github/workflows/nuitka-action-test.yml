@@ -14,6 +14,7 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        disable-cache: ["ccache", ""]
     continue-on-error: true
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +30,7 @@ jobs:
           output-dir: dist
           assume-yes-for-downloads: true
           mingw64: true # Only for Windows
-          disable-cache: ccache
+          disable-cache: ${{ matrix.disable-cache }}
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3
         with:
